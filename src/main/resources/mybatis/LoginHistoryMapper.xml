@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zerobase.fastlms.admin.mapper.LoginHistoryMapper">
+
+
+    <select id="selectLoginHistoryByUserId" resultType="com.zerobase.fastlms.admin.dto.LoginHistoryDto">
+        SELECT
+            lh.user_id AS userId,
+            lh.login_dt AS loginDt,
+            lh.ip AS ip,
+            lh.user_agent AS userAgent
+        FROM
+            login_history lh
+        WHERE
+            lh.user_id = #{userId}
+        ORDER BY
+            lh.login_dt DESC
+    </select>
+
+</mapper>

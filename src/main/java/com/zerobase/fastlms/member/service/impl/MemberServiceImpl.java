@@ -25,7 +25,6 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -147,8 +146,6 @@ public class MemberServiceImpl implements MemberService {
         }
         
         return list;
-        
-        //return memberRepository.findAll();
     }
     
     @Override
@@ -308,6 +305,16 @@ public class MemberServiceImpl implements MemberService {
         log.info("로그인 성공: {}", member.getUserName());
 
         return new User(member.getUserId(), member.getPassword(), grantedAuthorities);
+    }
+
+    @Override
+    public void updateLastLoginDt(String userId, LocalDateTime lastLoginDt) {
+
+        Member member = memberRepository.findById(userId)
+                .orElseThrow(() -> new UsernameNotFoundException("회원 정보가 존재하지 않습니다."));
+
+        member.setLastLoginDt(lastLoginDt);
+        memberRepository.save(member);
     }
 }
 

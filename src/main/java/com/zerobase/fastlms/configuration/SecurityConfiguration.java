@@ -1,5 +1,6 @@
 package com.zerobase.fastlms.configuration;
 
+import com.zerobase.fastlms.member.service.LoginHistoryService;
 import com.zerobase.fastlms.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +21,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final MemberService memberService;
+    private final LoginHistoryService loginHistoryService;
 
     @Bean
     PasswordEncoder getPasswordEncoder() {
@@ -29,6 +31,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     UserAuthenticationFailureHandler getFailureHandler() {
         return new UserAuthenticationFailureHandler();
+    }
+
+    @Bean
+    UserAuthenticationSuccessHandler getSuccessHandler() {
+        return new UserAuthenticationSuccessHandler(memberService, loginHistoryService);
     }
     
     @Override
@@ -59,7 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.formLogin()
                 .loginPage("/member/login")
-                //.successHandler() // TODO : 로그인 히스토리 저장 구현하기
+                .successHandler(getSuccessHandler()) // TODO : 로그인 히스토리 저장 구현하기
                 .failureHandler(getFailureHandler())
                 .permitAll();
 
