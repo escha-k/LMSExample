@@ -27,7 +27,7 @@
 </head>
 <body>
 <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
-<h1>배너 관리 - 배너 등록</h1>
+<h1>배너 관리 - 배너 수정</h1>
 
 
 <div class="add">
@@ -38,25 +38,25 @@
             <tr>
                 <th>배너명</th>
                 <td>
-                    <input type="text" name="name" placeholder="배너명 입력" required/>
+                    <input type="text" name="name" th:value="${banner.name}" readonly/>
                 </td>
             </tr>
             <tr>
                 <th>배너 파일</th>
                 <td>
-                    <input type="file" name="file" required/>
+                    <input type="file" name="file" th:value="${banner.image}" required/>
                 </td>
             </tr>
             <tr>
                 <th>대체 텍스트</th>
                 <td>
-                    <input type="text" name="alterText" placeholder="대체 텍스트 입력" />
+                    <input type="text" name="alterText" th:value="${banner.alterText}" />
                 </td>
             </tr>
             <tr>
                 <th>링크 주소</th>
                 <td>
-                    <input type="text" name="url" placeholder="링크 주소 입력" required/>
+                    <input type="text" name="url" th:value="${banner.url}" required/>
                 </td>
             </tr>
             <tr>
@@ -71,13 +71,13 @@
             <tr>
                 <th>정렬 순서</th>
                 <td>
-                    <input type="text" name="sortOrder" placeholder="정렬 순서 입력"/>
+                    <input type="text" name="sortOrder" th:value="${banner.sortOrder}"/>
                 </td>
             </tr>
             <tr>
                 <th>공개 여부</th>
                 <td>
-                    <input type="checkbox" name="isPublic" value="true"/> 공개
+                    <input type="checkbox" name="isPublic" th:value="${banner.isPublic()}" /> 공개
                 </td>
             </tr>
             <tr>
@@ -89,7 +89,7 @@
 
 
         <div align="center">
-            <button type="submit" class="btn">배너 등록 하기</button>&nbsp;
+            <button type="submit" class="btn">배너 수정 하기</button>&nbsp;
             <a th:href="@{/admin/banner/list.do}" class="btn">목록 이동</a>
         </div>
     </form>

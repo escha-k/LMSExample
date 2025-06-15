@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
 @Service
@@ -39,13 +40,14 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
-    public void updateBanner(BannerInput banner) {
-
+    public void deleteBannersByName(List<String> list) {
+        bannerRepository.deleteAllByIdInBatch(list);
     }
 
-    @Override
-    public void deleteBanners(BannerInput banner) {
+    public BannerDto getBanner(String id) {
+        Banner banner = bannerRepository.findById(id).orElseThrow(NoSuchElementException::new);
 
+        return BannerDto.of(banner);
     }
 
     @Override

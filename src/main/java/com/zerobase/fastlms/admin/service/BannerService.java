@@ -10,9 +10,9 @@ public interface BannerService {
 
     public void saveBanner(BannerInput banner);
 
-    public void updateBanner(BannerInput banner);
+    void deleteBannersByName(List<String> list);
 
-    public void deleteBanners(BannerInput banner);
+    public BannerDto getBanner(String id);
 
     public List<BannerDto> getBanners(BannerParam parameter);
 

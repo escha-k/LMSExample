@@ -45,7 +45,7 @@
     <div>
         <a th:href="@{/admin/banner/add.do}" class="btn">배너 등록</a>
 
-        <form method="post" th:action="@{/admin/banner/delete}" id="deleteForm" style="display:inline;">
+        <form method="post" th:action="@{/admin/banner/delete.do}" id="deleteForm" style="display:inline;">
             <button type="submit" class="btn">선택 삭제</button>
         </form>
 
@@ -57,7 +57,7 @@
 
     <script>
         function toggleCheckboxes(source) {
-            const checkboxes = document.querySelectorAll('input[name="selectedIds"]');
+            const checkboxes = document.querySelectorAll('input[name="deleteList"]');
             for (const checkbox of checkboxes) {
                 checkbox.checked = source.checked;
             }
@@ -79,11 +79,11 @@
         <tbody>
         <tr th:each="x : ${list}">
             <td>
-                <input type="checkbox" name="selectedIds" th:value="${x.sortOrder}" form="deleteForm"/>
+                <input type="checkbox" name="deleteList" th:value="${x.name}" form="deleteForm"/>
             </td>
             <td th:text="${x.seq}">1</td>
             <td>
-                <a th:href="@{'/admin/banner/update.do?' + ${x.name}}" th:text="${x.name}">배너명</a>
+                <a th:href="@{'/admin/banner/update.do?name=' + ${x.name}}" th:text="${x.name}">배너명</a>
             </td>
             <td>
                 <img th:src="@{'/' + ${x.image}}" th:alt="${x.alterText}"/>

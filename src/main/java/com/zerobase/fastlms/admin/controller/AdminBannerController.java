@@ -6,18 +6,18 @@ import com.zerobase.fastlms.admin.model.BannerParam;
 import com.zerobase.fastlms.admin.service.BannerService;
 import com.zerobase.fastlms.course.controller.BaseController;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * TODO : 배너 관리 페이지 만들기
  */
 
+@Slf4j
 @RequiredArgsConstructor
 @Controller
 public class AdminBannerController extends BaseController {
@@ -42,15 +42,34 @@ public class AdminBannerController extends BaseController {
     }
 
     @GetMapping("/admin/banner/add.do")
-    public String add(Model model) {
+    public String add() {
 
         return "admin/banner/add";
     }
 
-    @PostMapping("/admin/banner/add.do")
+    @PostMapping("/admin/banner/upload.do")
     public String add(BannerInput parameter) {
 
         bannerService.saveBanner(parameter);
+
+        return "redirect:/admin/banner/list.do";
+    }
+
+    @GetMapping("/admin/banner/update.do")
+    public String update(Model model, BannerParam parameter) {
+
+        String name = parameter.getName();
+        BannerDto banner = bannerService.getBanner(name);
+
+        model.addAttribute("banner", banner);
+
+        return "admin/banner/update";
+    }
+
+    @PostMapping("/admin/banner/delete.do")
+    public String delete(@RequestParam("deleteList") List<String> list) {
+
+        bannerService.deleteBannersByName(list);
 
         return "redirect:/admin/banner/list.do";
     }
