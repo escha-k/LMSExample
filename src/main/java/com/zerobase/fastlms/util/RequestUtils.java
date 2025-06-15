@@ -1,10 +1,7 @@
 package com.zerobase.fastlms.util;
 
-import lombok.extern.slf4j.Slf4j;
-
 import javax.servlet.http.HttpServletRequest;
 
-@Slf4j
 public class RequestUtils {
 
     public static String getUserAgent(HttpServletRequest request) {
@@ -35,8 +32,6 @@ public class RequestUtils {
         if (ip != null && ip.contains(",")) {
             ip = ip.split(",")[0].trim();
         }
-
-        log.info("접속 ip: {}", ip);
 
         return ip;
     }

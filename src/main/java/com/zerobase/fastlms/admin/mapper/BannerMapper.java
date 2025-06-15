@@ -10,8 +10,8 @@ import java.util.List;
 public interface BannerMapper {
 
     List<BannerDto> selectAll(BannerParam parameter);
+
     List<BannerDto> selectPublic();
-    int countAll();
 
     void shiftSortOrder(int fromOrder);
 }

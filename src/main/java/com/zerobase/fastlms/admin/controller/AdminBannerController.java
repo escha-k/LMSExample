@@ -6,14 +6,14 @@ import com.zerobase.fastlms.admin.model.BannerParam;
 import com.zerobase.fastlms.admin.service.BannerService;
 import com.zerobase.fastlms.course.controller.BaseController;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@Slf4j
 @RequiredArgsConstructor
 @Controller
 public class AdminBannerController extends BaseController {
@@ -45,7 +45,6 @@ public class AdminBannerController extends BaseController {
     @PostMapping("/admin/banner/upload.do")
     public String add(BannerInput parameter) {
 
-        log.info("isPublic: {}", parameter.getIsPublic());
         bannerService.saveBanner(parameter);
 
         return "redirect:/admin/banner/list.do";

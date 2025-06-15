@@ -27,15 +27,9 @@
         ORDER BY sort_order ASC
     </select>
 
-    <select id="countAll" resultType="int">
-        SELECT COUNT(*) FROM banner
-    </select>
-
     <update id="shiftSortOrder">
         UPDATE banner
         SET sort_order = sort_order + 1
         WHERE sort_order >= #{fromOrder}
     </update>
-
-
 </mapper>
