@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 documents
+banners
 .DS_Store
 
 ### STS ###

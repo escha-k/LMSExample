@@ -1,7 +1,57 @@
 package com.zerobase.fastlms.admin.controller;
 
+import com.zerobase.fastlms.admin.dto.BannerDto;
+import com.zerobase.fastlms.admin.model.BannerInput;
+import com.zerobase.fastlms.admin.model.BannerParam;
+import com.zerobase.fastlms.admin.service.BannerService;
+import com.zerobase.fastlms.course.controller.BaseController;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * TODO : 배너 관리 페이지 만들기
  */
-public class AdminBannerController {
+
+@RequiredArgsConstructor
+@Controller
+public class AdminBannerController extends BaseController {
+
+    private final BannerService bannerService;
+
+    @GetMapping("/admin/banner/list.do")
+    public String list(Model model, BannerParam parameter) {
+
+        parameter.init();
+
+        List<BannerDto> list = bannerService.getBanners(parameter);
+        long totalCount = list.size();
+        String pagerHtml = getPaperHtml(totalCount, parameter.getPageSize(), parameter.getPageIndex(), "");
+
+
+        model.addAttribute("list", list);
+        model.addAttribute("totalCount", totalCount);
+        model.addAttribute("pager", pagerHtml);
+
+        return "admin/banner/list";
+    }
+
+    @GetMapping("/admin/banner/add.do")
+    public String add(Model model) {
+
+        return "admin/banner/add";
+    }
+
+    @PostMapping("/admin/banner/add.do")
+    public String add(BannerInput parameter) {
+
+        bannerService.saveBanner(parameter);
+
+        return "redirect:/admin/banner/list.do";
+    }
 }

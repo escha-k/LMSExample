@@ -8,7 +8,6 @@ import com.zerobase.fastlms.admin.model.MemberInput;
 import com.zerobase.fastlms.course.controller.BaseController;
 import com.zerobase.fastlms.member.service.LoginHistoryService;
 import com.zerobase.fastlms.member.service.MemberService;
-import com.zerobase.fastlms.util.PageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 화면 </title>
+    <style>
+        .add table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .add table th, .add table td {
+            border: solid 1px #000;
+        }
+
+        .btn {
+            background: none;
+            border: none;
+            color: inherit;
+            font: inherit;
+            text-decoration: underline;
+            cursor: pointer;
+            padding: 0;
+        }
+
+    </style>
+</head>
+<body>
+<div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
+<h1>배너 관리 - 배너 등록</h1>
+
+
+<div class="add">
+
+    <form th:action="@{/admin/banner/add.do}" method="POST" enctype="multipart/form-data">
+        <table>
+            <tbody>
+            <tr>
+                <th>배너명</th>
+                <td>
+                    <input type="text" name="name" placeholder="배너명 입력" required/>
+                </td>
+            </tr>
+            <tr>
+                <th>배너 파일</th>
+                <td>
+                    <input type="file" name="file" required/>
+                </td>
+            </tr>
+            <tr>
+                <th>대체 텍스트</th>
+                <td>
+                    <input type="text" name="alterText" placeholder="대체 텍스트 입력" />
+                </td>
+            </tr>
+            <tr>
+                <th>링크 주소</th>
+                <td>
+                    <input type="text" name="url" placeholder="링크 주소 입력" required/>
+                </td>
+            </tr>
+            <tr>
+                <th>오픈 방법</th>
+                <td>
+                    <select name="target">
+                        <option value="_self">현재 창</option>
+                        <option value="_blank">새 창</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>정렬 순서</th>
+                <td>
+                    <input type="text" name="sortOrder" placeholder="정렬 순서 입력"/>
+                </td>
+            </tr>
+            <tr>
+                <th>공개 여부</th>
+                <td>
+                    <input type="checkbox" name="isPublic" value="true"/> 공개
+                </td>
+            </tr>
+            <tr>
+            </tr>
+
+
+            </tbody>
+        </table>
+
+
+        <div align="center">
+            <button type="submit" class="btn">배너 등록 하기</button>&nbsp;
+            <a th:href="@{/admin/banner/list.do}" class="btn">목록 이동</a>
+        </div>
+    </form>
+
+
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 화면 </title>
+    <style>
+        .list table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .list table th, .list table td {
+            border: solid 1px #000;
+        }
+
+        .btn {
+            background: none;
+            border: none;
+            color: inherit;
+            font: inherit;
+            text-decoration: underline;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .pager {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .pager a.on {
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
+
+<h1>배너 관리</h1>
+
+<div class="list">
+
+    <div>
+        <a th:href="@{/admin/banner/add.do}" class="btn">배너 등록</a>
+
+        <form method="post" th:action="@{/admin/banner/delete}" id="deleteForm" style="display:inline;">
+            <button type="submit" class="btn">선택 삭제</button>
+        </form>
+
+        <div style="text-align: right;">
+            전체 <span th:text="${totalCount}">0</span>개
+        </div>
+    </div>
+
+
+    <script>
+        function toggleCheckboxes(source) {
+            const checkboxes = document.querySelectorAll('input[name="selectedIds"]');
+            for (const checkbox of checkboxes) {
+                checkbox.checked = source.checked;
+            }
+        }
+    </script>
+
+
+    <table>
+        <thead>
+        <tr>
+            <th><input type="checkbox" id="selectAll" onclick="toggleCheckboxes(this)"/></th>
+            <th>NO</th>
+            <th>배너명</th>
+            <th>이미지</th>
+            <th>등록일</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="x : ${list}">
+            <td>
+                <input type="checkbox" name="selectedIds" th:value="${x.sortOrder}" form="deleteForm"/>
+            </td>
+            <td th:text="${x.seq}">1</td>
+            <td>
+                <a th:href="@{'/admin/banner/update.do?' + ${x.name}}" th:text="${x.name}">배너명</a>
+            </td>
+            <td>
+                <img th:src="@{'/' + ${x.image}}" th:alt="${x.alterText}"/>
+            </td>
+            <td th:text="${x.regDtText}">2020.01.01</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <div class="pager" th:utext="${pager}">
+    </div>
+
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zerobase.fastlms.admin.mapper.BannerMapper">
+
+    <resultMap id="BannerResultMap" type="com.zerobase.fastlms.admin.dto.BannerDto">
+        <id property="name" column="name"/>
+        <result property="image" column="image"/>
+        <result property="alterText" column="alter_text"/>
+        <result property="url" column="url"/>
+        <result property="target" column="target"/>
+        <result property="sortOrder" column="sort_order"/>
+        <result property="isPublic" column="is_public"/>
+        <result property="regDt" column="reg_dt"/>
+    </resultMap>
+
+    <select id="selectAll" parameterType="com.zerobase.fastlms.admin.model.BannerParam" resultMap="BannerResultMap">
+        SELECT * FROM banner
+        ORDER BY sort_order ASC
+            LIMIT #{pageStart}, #{pageEnd}
+    </select>
+
+    <select id="selectPublic" resultMap="BannerResultMap">
+        SELECT * FROM banner
+        WHERE is_public = TRUE
+        ORDER BY sort_order ASC
+    </select>
+
+    <select id="countAll" resultType="int">
+        SELECT COUNT(*) FROM banner
+    </select>
+
+    <update id="shiftSortOrder">
+        UPDATE banner
+        SET sort_order = sort_order + 1
+        WHERE sort_order >= #{fromOrder}
+    </update>
+
+
+</mapper>
