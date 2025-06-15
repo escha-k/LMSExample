@@ -3,6 +3,8 @@ package com.zerobase.fastlms.admin.model;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
+
 @Data
 public class BannerInput {
 
@@ -11,7 +13,7 @@ public class BannerInput {
     String alterText;
     String target;
     Integer sortOrder;
-    boolean isPublic;
+    Boolean isPublic;
+    LocalDateTime regDt;
     MultipartFile file;
-
 }

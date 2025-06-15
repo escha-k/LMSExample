@@ -32,7 +32,7 @@
 
 <div class="add">
 
-    <form th:action="@{/admin/banner/upload.do}" method="POST" enctype="multipart/form-data">
+    <form th:action="@{/admin/banner/update.do}" method="POST" enctype="multipart/form-data">
         <table>
             <tbody>
             <tr>
@@ -44,7 +44,7 @@
             <tr>
                 <th>배너 파일</th>
                 <td>
-                    <input type="file" name="file" th:value="${banner.image}" required/>
+                    <input type="file" name="file" th:value="${banner.image}" />
                 </td>
             </tr>
             <tr>
@@ -77,10 +77,9 @@
             <tr>
                 <th>공개 여부</th>
                 <td>
-                    <input type="checkbox" name="isPublic" th:value="${banner.isPublic()}" /> 공개
+                    <input type="checkbox" name="isPublic" th:value="true" /> 공개
+                    <input type="hidden" name="_isPublic" value="false"/>
                 </td>
-            </tr>
-            <tr>
             </tr>
 
 

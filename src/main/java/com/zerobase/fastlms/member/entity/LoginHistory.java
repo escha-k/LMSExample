@@ -5,10 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-/**
- * TODO : 로그인 히스토리 엔티티 구현
- */
-
 @Getter
 @Setter
 @NoArgsConstructor

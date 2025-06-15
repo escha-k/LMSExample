@@ -13,10 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * TODO : 배너 관리 페이지 만들기
- */
-
 @Slf4j
 @RequiredArgsConstructor
 @Controller
@@ -32,7 +28,6 @@ public class AdminBannerController extends BaseController {
         List<BannerDto> list = bannerService.getBanners(parameter);
         long totalCount = list.size();
         String pagerHtml = getPaperHtml(totalCount, parameter.getPageSize(), parameter.getPageIndex(), "");
-
 
         model.addAttribute("list", list);
         model.addAttribute("totalCount", totalCount);
@@ -50,6 +45,7 @@ public class AdminBannerController extends BaseController {
     @PostMapping("/admin/banner/upload.do")
     public String add(BannerInput parameter) {
 
+        log.info("isPublic: {}", parameter.getIsPublic());
         bannerService.saveBanner(parameter);
 
         return "redirect:/admin/banner/list.do";
@@ -64,6 +60,14 @@ public class AdminBannerController extends BaseController {
         model.addAttribute("banner", banner);
 
         return "admin/banner/update";
+    }
+
+    @PostMapping("/admin/banner/update.do")
+    public String update(BannerInput parameter) {
+
+        bannerService.updateBanner(parameter);
+
+        return "redirect:/admin/banner/list.do";
     }
 
     @PostMapping("/admin/banner/delete.do")

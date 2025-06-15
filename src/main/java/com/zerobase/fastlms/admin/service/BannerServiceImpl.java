@@ -8,11 +8,13 @@ import com.zerobase.fastlms.admin.model.BannerParam;
 import com.zerobase.fastlms.admin.repository.BannerRepository;
 import com.zerobase.fastlms.util.ImageUploadUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class BannerServiceImpl implements BannerService {
@@ -33,8 +35,27 @@ public class BannerServiceImpl implements BannerService {
                 .alterText(parameter.getAlterText())
                 .target(parameter.getTarget())
                 .sortOrder(parameter.getSortOrder())
-                .isPublic(parameter.isPublic())
+                .isPublic(parameter.getIsPublic())
                 .build();
+
+        bannerRepository.save(banner);
+    }
+
+    @Override
+    public void updateBanner(BannerInput parameter) {
+        bannerMapper.shiftSortOrder(parameter.getSortOrder());
+
+        Banner banner = bannerRepository.findById(parameter.getName())
+                .orElseThrow(NoSuchElementException::new);
+
+        if (!parameter.getFile().isEmpty()) {
+            banner.setImage(ImageUploadUtil.upload(parameter.getFile()));
+        }
+        banner.setUrl(parameter.getUrl());
+        banner.setAlterText(parameter.getAlterText());
+        banner.setTarget(parameter.getTarget());
+        banner.setSortOrder(parameter.getSortOrder());
+        banner.setPublic(parameter.getIsPublic());
 
         bannerRepository.save(banner);
     }

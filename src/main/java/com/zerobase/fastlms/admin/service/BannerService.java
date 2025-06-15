@@ -8,13 +8,15 @@ import java.util.List;
 
 public interface BannerService {
 
-    public void saveBanner(BannerInput banner);
+    void saveBanner(BannerInput banner);
+
+    void updateBanner(BannerInput banner);
 
     void deleteBannersByName(List<String> list);
 
-    public BannerDto getBanner(String id);
+    BannerDto getBanner(String id);
 
-    public List<BannerDto> getBanners(BannerParam parameter);
+    List<BannerDto> getBanners(BannerParam parameter);
 
-    public List<BannerDto> getPublicBanners();
+    List<BannerDto> getPublicBanners();
 }

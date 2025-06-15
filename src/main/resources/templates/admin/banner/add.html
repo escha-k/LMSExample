@@ -74,15 +74,13 @@
                     <input type="text" name="sortOrder" placeholder="정렬 순서 입력"/>
                 </td>
             </tr>
-            <tr>
+            <tr th:type="hidden">
                 <th>공개 여부</th>
                 <td>
                     <input type="checkbox" name="isPublic" value="true"/> 공개
+                    <input type="hidden" name="_isPublic" value="false"/>
                 </td>
             </tr>
-            <tr>
-            </tr>
-
 
             </tbody>
         </table>
